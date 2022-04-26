@@ -1,0 +1,1 @@
+{"version":3,"file":"TransactionEmitter.js","sourceRoot":"","sources":["TransactionEmitter.ts"],"names":[],"mappings":";;;AAAA,mCAAsC;AAGtC,MAAa,kBAAmB,SAAQ,qBAAY;IAChD;QACI,KAAK,EAAE,CAAC;IACZ,CAAC;IAED,kBAAkB,CAAC,EAAwB;QACvC,IAAI,CAAC,IAAI,CAAC,aAAa,EAAE,EAAE,CAAC,CAAC;IACjC,CAAC;CACJ;AARD,gDAQC"}
