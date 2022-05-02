@@ -71,8 +71,8 @@ export const NewTryggerModal = (props: any) => {
                             }
                         })}>
                             <option value='wallet'>Wallet Monitor</option>
-                            <option value='erc20'>ERC20 Transfers (coming soon)</option>
-                            <option value='nft'>NFT Transfers (coming soon)</option>
+                            <option style={{color: 'gray'}} value='erc20'>ERC20 Transfers (coming soon)</option>
+                            <option style={{color: 'gray'}} value='nft'>NFT Transfers (coming soon)</option>
                             <option style={{color: 'gray'}} value='gas'>Gas Alerts (Pro - Coming Soon)</option>
                             <option style={{color: 'gray'}} value='price'>Price Alert (Pro - Coming Soon)</option>
                             <option style={{color: 'gray'}} value='whale'>Whale Movement (Pro - Coming Soon)</option>
