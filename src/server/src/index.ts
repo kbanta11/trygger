@@ -1,5 +1,5 @@
 require('dotenv').config();
-import { BigNumberish, ethers } from 'ethers';
+import { BigNumberish, Contract, ethers } from 'ethers';
 import express from 'express';
 import bodyParser from 'body-parser';
 import { ProcessedTransaction } from './models/transaction';
@@ -24,6 +24,10 @@ const txEmitter = new TransactionEmitter();
 interface IMap {
     [key: string]: any[];
 }
+
+let erc20abi = [
+    "event Transfer(address indexed src, address indexed dst, uint val)"
+  ];
 
 const main = async() => {
     //emit transactions and process active tryggers
@@ -70,6 +74,14 @@ const main = async() => {
     }
 
     //setup api endpoints
+    server.post('/checkERC20', async (req, res) => {
+        let contract = new Contract(req.body.address, erc20abi, provider);
+        let filter = contract.filters.Transfer();
+        let resp = contract.queryFilter(filter);
+        console.log(`Resp: ${resp}`);
+        return res.send({error: false})
+    });
+
     server.post("/sendContactForm", async (req, res) => {
         console.log(req.body);
         const msg = {
@@ -106,12 +118,11 @@ Message: ${req.body.message}
         //use user UID if it exists (it should due to trigger on DB) to check if user has any existing tryggers
         let uid = data && data[0] ? data[0]['id'] : null;
         //if user has existing tryggers, return false (not new user) and don't create a new trygger
-        var { data, error } = await supabase.from('tryggers').select().eq('user_id', uid);
+        var { data, error } = await supabase.from('tryggers').select().eq('userId', uid);
         let existingUser: boolean = (data && data.length > 0) ?? false;
         let createdTrygger = false;
         if(!existingUser) {
             //create trygger
-
             let tryggerData: IFormData = {
                 userId: uid,
                 chain: req.body.chain,
@@ -128,7 +139,7 @@ Message: ${req.body.message}
                 activeTryggers[`${trygger.trigger_type}`] ? activeTryggers[`${trygger.trigger_type}`].push(newTrigger) : activeTryggers[`${trygger.trigger_type}`] = [newTrigger];
             }
         }
-        return res.end(`${createdTrygger}`);
+        return res.send({existing: existingUser, createdTrygger: createdTrygger});
     });
 
     server.post('/createNewTrygger', async (req, res) => {

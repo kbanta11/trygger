@@ -50,12 +50,18 @@ export const Navbar = () => {
             <Image src={logo} height={'60px'} width={'240px'}/>
             <Box textColor={'white'}>
                 {
-                    user ? <Link margin={'5px'} onClick={(() => {supabase.auth.signOut()})}>Logout</Link> : <Link margin={'5px'} onClick={onOpen}>Login</Link> 
-                }|
-                <HashLink smooth to='/#use-cases'><span style={{margin: '5px'}}>Use Cases</span></HashLink>|
-                <HashLink smooth to='/#pricing'><span style={{margin: '5px'}}>Pricing</span></HashLink>|
-                <HashLink smooth to='/#about'><span style={{margin: '5px'}}>About</span></HashLink>|
-                <HashLink smooth to='/#contact'><span style={{margin: '5px'}}>Contact</span></HashLink>
+                    user ? <Link margin={'5px'} onClick={(() => {supabase.auth.signOut()})}>Logout</Link>
+                    : 
+                    <Box>
+                        <Link margin={'5px'} onClick={onOpen}>Login</Link>|
+                        <HashLink smooth to='/#use-cases'><span style={{margin: '5px'}}>Use Cases</span></HashLink>|
+                        <HashLink smooth to='/#pricing'><span style={{margin: '5px'}}>Pricing</span></HashLink>|
+                        <HashLink smooth to='/#about'><span style={{margin: '5px'}}>About</span></HashLink>|
+                        <HashLink smooth to='/#contact'><span style={{margin: '5px'}}>Contact</span></HashLink>
+                    </Box>
+                }
+
+                
             </Box>
             <LoginModal isOpen={isOpen} onClose={onClose} />
         </Box>

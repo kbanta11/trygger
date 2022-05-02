@@ -9,7 +9,9 @@ import {
     InputGroup,
     InputLeftAddon,
     Button,
-    Spinner
+    Spinner,
+    FormControl,
+    FormErrorMessage
 } from '@chakra-ui/react';
 import validator from 'validator';
 import { ethers } from 'ethers';
@@ -31,6 +33,7 @@ export const NewTryggerModal = (props: any) => {
     const user = useRecoilValue(userState);
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({} as IFormData);
+    const [formErrors, setFormErrors] = useState({} as any);
     const [step, setStep] = useState(1);
 
     const _clearAndClose = () => {
@@ -63,13 +66,13 @@ export const NewTryggerModal = (props: any) => {
                         </Select>
                         <Heading fontSize={'1.5em'} marginTop={'10px'} marginBottom={'5px'}>Trygger Type</Heading>
                         <Select value={formData.type} onChange={((event: React.ChangeEvent<HTMLSelectElement>) => {
-                            if(['wallet', 'erc20'].includes(event.target.value) && formData.type !== event.target.value) {
+                            if(['wallet'].includes(event.target.value) && formData.type !== event.target.value) {
                                 setFormData({... formData, type: event.target.value, triggerDetails: {}});
                             }
                         })}>
                             <option value='wallet'>Wallet Monitor</option>
-                            <option value='erc20'>ERC20 Transfers</option>
-                            <option value='nft'>NFT Transfers</option>
+                            <option value='erc20'>ERC20 Transfers (coming soon)</option>
+                            <option value='nft'>NFT Transfers (coming soon)</option>
                             <option style={{color: 'gray'}} value='gas'>Gas Alerts (Pro - Coming Soon)</option>
                             <option style={{color: 'gray'}} value='price'>Price Alert (Pro - Coming Soon)</option>
                             <option style={{color: 'gray'}} value='whale'>Whale Movement (Pro - Coming Soon)</option>
@@ -127,17 +130,65 @@ export const NewTryggerModal = (props: any) => {
                     : 
                     <ModalBody>
                         <Heading fontSize={'1.5em'} marginTop={'10px'} marginBottom={'5px'}>Token Contract Address</Heading>
-                        <Input value={formData?.triggerDetails ? formData?.triggerDetails['contractAddress'] ?? '' : ''} onChange={((event: React.ChangeEvent<HTMLInputElement>) => {
-                            setFormData({... formData, triggerDetails: {... formData.triggerDetails, 'contractAddress': event.target.value}});
-                        })}></Input>
+                        <FormControl>
+                            <Input value={formData?.triggerDetails ? formData?.triggerDetails['contractAddress'] ?? '' : ''} onChange={(async (event: React.ChangeEvent<HTMLInputElement>) => {
+                                //check is valid ERC20 contract address and set error
+                                let error = await Helpers.checkERC20(event.target.value);
+                                if(error) {
+                                    setFormErrors({...formErrors, contractAddress: true});
+                                } else {
+                                    setFormErrors({...formErrors, contractAddress: false});
+                                }
+                                setFormData({... formData, triggerDetails: {... formData.triggerDetails, 'contractAddress': event.target.value}});
+                            })}></Input>
+                            {
+                                formErrors?.contractAddress ? 
+                                    <FormErrorMessage>Enter a valid ERC-20 Contract Address</FormErrorMessage>
+                                : ''
+                            }
+                        </FormControl>
                         <Heading fontSize={'1.5em'} marginTop={'10px'} marginBottom={'5px'}>To Address</Heading>
-                        <Input value={formData?.triggerDetails ? formData?.triggerDetails['toAddress'] ?? '' : ''} onChange={((event: React.ChangeEvent<HTMLInputElement>) => {
-                            setFormData({... formData, triggerDetails: {... formData.triggerDetails, 'toAddress': event.target.value}});
-                        })}></Input>
+                        <FormControl>
+                            <Input value={formData?.triggerDetails ? formData?.triggerDetails['toAddress'] ?? '' : ''} onChange={((event: React.ChangeEvent<HTMLInputElement>) => {
+                                //check is valid address and set error
+                                if(event.target.value === '' || event.target.value === null || event.target.value === undefined) {
+                                    setFormErrors({...formErrors, toAddress: false});
+                                    setFormData({... formData, triggerDetails: {... formData.triggerDetails, 'toAddress': undefined}});
+                                    return;
+                                }
+                                try {
+                                    ethers.utils.getAddress(event.target.value ?? '');
+                                    setFormErrors({...formErrors, toAddress: false});
+                                    setFormData({... formData, triggerDetails: {... formData.triggerDetails, 'toAddress': event.target.value}});
+                                } catch (e) {
+                                    setFormErrors({...formErrors, toAddress: true});
+                                }
+                            })}></Input>
+                            {
+                                formErrors.toAddress ? <FormErrorMessage>Enter a valid Ethereum address or leave blank</FormErrorMessage> : ''
+                            }
+                        </FormControl>
                         <Heading fontSize={'1.5em'} marginTop={'10px'} marginBottom={'5px'}>From Address</Heading>
-                        <Input value={formData?.triggerDetails ? formData?.triggerDetails['fromAddress'] ?? '' : ''} onChange={((event: React.ChangeEvent<HTMLInputElement>) => {
-                            setFormData({... formData, triggerDetails: {... formData.triggerDetails, 'fromAddress': event.target.value}});
-                        })}></Input>
+                        <FormControl>
+                            <Input value={formData?.triggerDetails ? formData?.triggerDetails['fromAddress'] ?? '' : ''} onChange={((event: React.ChangeEvent<HTMLInputElement>) => {
+                                //check is valid address and set error
+                                if(event.target.value === '' || event.target.value === null || event.target.value === undefined) {
+                                    setFormErrors({...formErrors, fromAddress: false});
+                                    setFormData({... formData, triggerDetails: {... formData.triggerDetails, 'fromAddress': undefined}});
+                                    return;
+                                }
+                                try {
+                                    ethers.utils.getAddress(event.target.value ?? '');
+                                    setFormErrors({...formErrors, fromAddress: false});
+                                    setFormData({... formData, triggerDetails: {... formData.triggerDetails, 'fromAddress': event.target.value}});
+                                } catch (e) {
+                                    setFormErrors({...formErrors, fromAddress: true});
+                                }
+                            })}></Input>
+                            {
+                                formErrors.fromAddress ? <FormErrorMessage>Enter a valid Ethereum address or leave blank</FormErrorMessage> : ''
+                            }
+                        </FormControl>
                     </ModalBody>
                 }
                 {

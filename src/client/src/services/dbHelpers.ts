@@ -5,6 +5,15 @@ import { IFormData } from "../components/NewTrygger/NewTryggerModal";
 import { ITryggerUser } from "../models/TryggerUser";
 
 export const Helpers = {
+    checkERC20: async (address: string) => {
+        let result = await fetch('/checkERC20', {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({address: address})
+        });
+        var resData = await result.json();
+        return (resData.error); 
+    },
     getUserData: async (uid: string) => {
         const { data, error } = await supabase.from('users').select().eq('id', uid);
         if(data) {
@@ -38,7 +47,7 @@ export const Helpers = {
         });
         var resData = await result.json();
         console.log(JSON.stringify(resData));
-        return (resData === 'true');
+        return (resData.createdTrygger);
     },
     createNewTrygger: async (formData: IFormData) => {
         var result = await fetch('/createNewTrygger', {

@@ -43,16 +43,16 @@ export const FirstTryggerForm = () => {
             }
         }
         if(firstTriggerFormData.action === 'email') {
-            let { user, error, } = await supabase.auth.signUp({email: `${formData.actionDetails['email']}`});
+            let { user, error, } = await supabase.auth.signIn({email: `${formData.actionDetails['email']}`});
             console.log(`User: ${JSON.stringify(user)}\nError: ${JSON.stringify(error)}`);
             if(error) {
                 alert('We\'re sorry, we had an error creating your account. Please try again. If this continues to happen, please contact us!');
                 setIsLoading(false);
                 return
             } else {
-                //send request to backend to create new user record and create a new trygger if needed
-                let newUser = await Helpers.createNewUserWithTrygger(formData);
-                setIsNewUser(newUser);
+                //send request to backend to create new user record and create a new trygger if needed, return if created a trygger
+                let createdTrygger = await Helpers.createNewUserWithTrygger(formData);
+                setIsNewUser(createdTrygger);
                 setShowConfirmLogin(true);
             }
         }
@@ -195,7 +195,7 @@ export const FirstTryggerForm = () => {
                                 <Box textAlign={'center'}>
                                     <Heading>Confirm Account Creation</Heading>
                                     <br />
-                                    <Text>It looks like you've already created an account. Please continue logging in.</Text>
+                                    <Text>{!isNewUser ? "It looks like you've already created an account." : ''} Please continue logging in.</Text>
                                     <br />
                                     <Text>{firstTriggerFormData.action === 'sms' ? 'Enter the one-time passcode we have just sent you'
                                         : 'Please check your email for a magical login link'}</Text>
