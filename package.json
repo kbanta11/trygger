@@ -1,6 +1,6 @@
 {
     "scripts": {
-      "heroku-prebuild": "cd src/server && npm install && npx tsc",
+      "heroku-prebuild": "cd src/server && npm install && npm install typescript && npx tsc",
       "start": "node src/index.js"
     }
   }
