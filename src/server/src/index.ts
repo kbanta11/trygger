@@ -18,7 +18,7 @@ export const supabase = createClient(supabaseURL!, supabaseKey!);
 
 const QUIKNODE_ETHEREUM_URL = process.env.QUIKNODE_ETHEREUM_URL;
 const QUIKNODE_RINKEBY_URL = process.env.QUIKNODE_RINKEBY_URL;
-const provider = new ethers.providers.JsonRpcProvider(QUIKNODE_RINKEBY_URL);
+const provider = new ethers.providers.JsonRpcProvider(QUIKNODE_ETHEREUM_URL);
 const txEmitter = new TransactionEmitter();
 
 interface IMap {
