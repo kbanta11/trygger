@@ -1,0 +1,6 @@
+{
+    "scripts": {
+      "heroku-prebuild": "cd src/server && npm install && npx tsc",
+      "start": "node src/index.js"
+    }
+  }
