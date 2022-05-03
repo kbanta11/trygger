@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
 import { Box, Select, Heading, Text, Input, Center,
-    Popover, PopoverTrigger,Portal, PopoverArrow, PopoverHeader, 
+    Popover, PopoverTrigger,Portal, PopoverArrow, 
     PopoverBody, PopoverContent, PopoverCloseButton, Button,
-    useDisclosure, Modal, ModalOverlay, ModalContent, ModalBody, ModalFooter, InputGroup, CheckboxGroup, Checkbox, NumberInput, NumberInputField, Spinner } from '@chakra-ui/react';
+    useDisclosure, Modal, ModalOverlay, ModalContent, ModalBody, ModalFooter, CheckboxGroup, Checkbox, Spinner } from '@chakra-ui/react';
 import validator from 'validator';
 import { BiInfoCircle } from 'react-icons/bi';
 import { firstTriggerFormState } from '../../atoms';

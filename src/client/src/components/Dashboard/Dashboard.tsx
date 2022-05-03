@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Box, SimpleGrid, Button, useDisclosure } from "@chakra-ui/react";
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { userState, tryggerListState } from '../../atoms';

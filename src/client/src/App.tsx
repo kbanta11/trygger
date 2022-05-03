@@ -11,7 +11,7 @@ import { Dashboard } from './components/Dashboard/Dashboard';
 
 function App() {
   const [user, setUser] = useRecoilState(userState);
-  const [session, setSession] = useRecoilState(sessionState);
+  const [, setSession] = useRecoilState(sessionState);
 
   useEffect(() => {
     //check if there is an active session

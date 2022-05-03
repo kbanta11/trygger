@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, FormControl, FormLabel, Heading, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, Switch, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, FormControl, FormLabel, Heading, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Spinner, Switch, Text, useDisclosure } from '@chakra-ui/react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { tryggerListState, userState } from '../../atoms';
 import { BiTrash } from 'react-icons/bi';
