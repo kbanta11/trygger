@@ -40,7 +40,7 @@ export const Helpers = {
     createNewUserWithTrygger: async (formData: FirstTriggerFormData) => {
         //check whether user record exists for this user and get UID (by phone or email)
         //send all to backend
-        var result = await fetch('/createUserWithTrygger', {
+        var result = await fetch('/api/createUserWithTrygger', {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(formData)
@@ -50,7 +50,7 @@ export const Helpers = {
         return (resData.createdTrygger);
     },
     createNewTrygger: async (formData: IFormData) => {
-        var result = await fetch('/createNewTrygger', {
+        var result = await fetch('/api/createNewTrygger', {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(formData)
@@ -59,7 +59,7 @@ export const Helpers = {
         return (resData.success);
     },
     deleteTrygger: async (type: string, id: number) => {
-        var result = await fetch('/deleteTrygger', {
+        var result = await fetch('/api/deleteTrygger', {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({type: type, id: id})
@@ -70,7 +70,7 @@ export const Helpers = {
     toggleTrygger: async (trygger: any) => {
         if(trygger['active']) {
             //if true then toggle to false (deactivate)
-            var result = await fetch('/deactivateTrygger', {
+            var result = await fetch('/api/deactivateTrygger', {
                 method: 'POST',
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify({type: trygger['type'], id: trygger['id']})
@@ -79,7 +79,7 @@ export const Helpers = {
             return resData.success;
         } else {
             //if false or undefined, toggle to true (activate)
-            var result = await fetch('/activateTrygger', {
+            var result = await fetch('/api/activateTrygger', {
                 method: 'POST',
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify({id: trygger['id']})
@@ -99,7 +99,7 @@ export const Helpers = {
         return data ?? [];
     },
     sendContactForm: async (contactData: IContact) => {
-        var result = await fetch('/sendContactForm', {
+        var result = await fetch('/api/sendContactForm', {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(contactData)
@@ -110,7 +110,7 @@ export const Helpers = {
         return resData.success;
     },
     saveProEmail: async (email: string) => {
-        var result = await fetch('/saveProEmail', {
+        var result = await fetch('/api/saveProEmail', {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({email: email})
