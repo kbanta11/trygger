@@ -16,6 +16,7 @@ exports.supabase = void 0;
 require('dotenv').config();
 const ethers_1 = require("ethers");
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const trigger_1 = require("./models/trigger");
 const TransactionEmitter_1 = require("./emitters/TransactionEmitter");
@@ -59,6 +60,9 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     const server = (0, express_1.default)();
+    server.use((0, cors_1.default)({
+        origin: ['https://trygger.xyz']
+    }));
     server.use(body_parser_1.default.urlencoded({ extended: false }));
     server.use(body_parser_1.default.json());
     //get all current active tryggers and create listener

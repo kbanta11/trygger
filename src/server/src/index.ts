@@ -1,6 +1,7 @@
 require('dotenv').config();
 import { BigNumberish, Contract, ethers } from 'ethers';
 import express from 'express';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import { ProcessedTransaction } from './models/transaction';
 import { WalletMonitorTrigger, Trygger } from './models/trigger';
@@ -56,6 +57,9 @@ const main = async() => {
     }
 
     const server = express();
+    server.use(cors({
+        origin: ['https://trygger.xyz']
+    }));
     server.use(bodyParser.urlencoded({ extended: false}));
     server.use(bodyParser.json());
 
