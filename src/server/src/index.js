@@ -28,8 +28,8 @@ const supabaseURL = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
 exports.supabase = (0, supabase_js_1.createClient)(supabaseURL, supabaseKey);
 const QUIKNODE_ETHEREUM_URL = process.env.QUIKNODE_ETHEREUM_URL;
-const QUIKNODE_RINKEBY_URL = process.env.QUIKNODE_RINKEBY_URL;
-const provider = new ethers_1.ethers.providers.JsonRpcProvider(QUIKNODE_RINKEBY_URL);
+//const QUIKNODE_RINKEBY_URL = process.env.QUIKNODE_RINKEBY_URL;
+const provider = new ethers_1.ethers.providers.JsonRpcProvider(QUIKNODE_ETHEREUM_URL);
 const txEmitter = new TransactionEmitter_1.TransactionEmitter();
 let erc20abi = [
     "event Transfer(address indexed src, address indexed dst, uint val)"
