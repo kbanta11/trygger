@@ -20,17 +20,15 @@ function isContractAddress(address) {
 }
 class ProcessedTransaction {
     constructor(params) {
-        this.fromIsContract = false;
-        this.toIsContract = false;
         this.chainId = params.chainId;
         this.hash = params.hash;
         this.blockHash = params.blockHash;
         this.blockNumber = params.blockNumber;
         this.confirmations = params.confirmations;
         this.from = params.from;
-        this.fromIsContract = params.fromIsContract;
+        //this.fromIsContract = params.fromIsContract;
         this.to = params.to;
-        this.toIsContract = params.toIsContract;
+        //this.toIsContract = params.toIsContract;
         this.value = params.value;
         this.gasPrice = params.gasPrice;
         this.gasLimit = params.gasLimit;

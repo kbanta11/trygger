@@ -14,9 +14,9 @@ interface IProcessedTransaction {
     blockNumber: number;
     confirmations: number;
     from: string;
-    fromIsContract: boolean;
+    //fromIsContract: boolean;
     to: string;
-    toIsContract: boolean;
+    //toIsContract: boolean;
     value: ethers.BigNumberish;
     gasPrice?: ethers.BigNumberish;
     gasLimit?: ethers.BigNumberish;
@@ -38,9 +38,9 @@ export class ProcessedTransaction {
     blockNumber: number;
     confirmations: number;
     from?: string;
-    fromIsContract: boolean = false;
+    //fromIsContract: boolean = false;
     to?: string;
-    toIsContract: boolean = false;
+    //toIsContract: boolean = false;
     value: ethers.BigNumberish;
     gasPrice?: ethers.BigNumberish;
     gasLimit?: ethers.BigNumberish;
@@ -61,9 +61,9 @@ export class ProcessedTransaction {
             this.blockNumber = params.blockNumber;
             this.confirmations = params.confirmations;
             this.from = params.from;
-            this.fromIsContract = params.fromIsContract;
+            //this.fromIsContract = params.fromIsContract;
             this.to = params.to;
-            this.toIsContract = params.toIsContract;
+            //this.toIsContract = params.toIsContract;
             this.value = params.value;
             this.gasPrice = params.gasPrice;
             this.gasLimit = params.gasLimit;
