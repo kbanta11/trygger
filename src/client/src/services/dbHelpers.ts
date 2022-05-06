@@ -4,9 +4,11 @@ import { supabase } from "./supabaseClient";
 import { IFormData } from "../components/NewTrygger/NewTryggerModal";
 import { ITryggerUser } from "../models/TryggerUser";
 
+const backendPath = process.env.REACT_APP_ENV === 'production' ? 'https://backend.trygger.xyz' : '';
+
 export const Helpers = {
     checkERC20: async (address: string) => {
-        let result = await fetch('/checkERC20', {
+        let result = await fetch(`${backendPath}/checkERC20`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({address: address})
@@ -40,7 +42,7 @@ export const Helpers = {
     createNewUserWithTrygger: async (formData: FirstTriggerFormData) => {
         //check whether user record exists for this user and get UID (by phone or email)
         //send all to backend
-        var result = await fetch('/api/createUserWithTrygger', {
+        var result = await fetch(`${backendPath}/createUserWithTrygger`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(formData)
@@ -50,7 +52,7 @@ export const Helpers = {
         return (resData.createdTrygger);
     },
     createNewTrygger: async (formData: IFormData) => {
-        var result = await fetch('/api/createNewTrygger', {
+        var result = await fetch(`${backendPath}/createNewTrygger`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(formData)
@@ -59,7 +61,7 @@ export const Helpers = {
         return (resData.success);
     },
     deleteTrygger: async (type: string, id: number) => {
-        var result = await fetch('/api/deleteTrygger', {
+        var result = await fetch(`${backendPath}/deleteTrygger`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({type: type, id: id})
@@ -70,7 +72,7 @@ export const Helpers = {
     toggleTrygger: async (trygger: any) => {
         if(trygger['active']) {
             //if true then toggle to false (deactivate)
-            var result = await fetch('/api/deactivateTrygger', {
+            var result = await fetch(`${backendPath}/deactivateTrygger`, {
                 method: 'POST',
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify({type: trygger['type'], id: trygger['id']})
@@ -79,7 +81,7 @@ export const Helpers = {
             return resData.success;
         } else {
             //if false or undefined, toggle to true (activate)
-            var result = await fetch('/api/activateTrygger', {
+            var result = await fetch(`${backendPath}/activateTrygger`, {
                 method: 'POST',
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify({id: trygger['id']})
@@ -99,7 +101,7 @@ export const Helpers = {
         return data ?? [];
     },
     sendContactForm: async (contactData: IContact) => {
-        var result = await fetch('/api/sendContactForm', {
+        var result = await fetch(`${backendPath}/sendContactForm`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(contactData)
@@ -110,7 +112,7 @@ export const Helpers = {
         return resData.success;
     },
     saveProEmail: async (email: string) => {
-        var result = await fetch('/api/saveProEmail', {
+        var result = await fetch(`${backendPath}/saveProEmail`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({email: email})
