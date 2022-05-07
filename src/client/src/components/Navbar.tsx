@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Box, Text, Link, Image, Modal, ModalOverlay, ModalContent, ModalBody, ModalFooter, useDisclosure, 
-    Heading, Select, InputGroup, Input, Button } from '@chakra-ui/react';
+    Heading, Select, InputGroup, Input, Button, ModalHeader } from '@chakra-ui/react';
 import { HashLink } from 'react-router-hash-link';
 import logo from '../trygger.png';
 import { userState } from '../atoms';
@@ -15,6 +15,7 @@ export const Navbar = () => {
     const [phoneVerifyCode, setPhoneVerifyCode] = useState('');
     const [showVerify, setShowVerify] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen: supportIsOpen, onOpen: supportOnOpen, onClose: supportOnClose } = useDisclosure();
     const user = useRecoilValue(userState);
 
     async function _signIn() {
@@ -50,7 +51,25 @@ export const Navbar = () => {
             <Image src={logo} height={'60px'} width={'240px'}/>
             <Box textColor={'white'}>
                 {
-                    user ? <Link margin={'5px'} onClick={(() => {supabase.auth.signOut()})}>Logout</Link>
+                    user ? 
+                    <Box>    
+                        <Link margin={'5px'} onClick={(() => {supabase.auth.signOut()})}>Logout</Link>|
+                        <Link margin={'5px'} onClick={supportOnOpen}>Support</Link>
+                        <Modal isOpen={supportIsOpen} onClose={supportOnClose}>
+                            <ModalOverlay />
+                            <ModalContent>
+                                <ModalHeader>
+                                    <Heading>Contact Support</Heading>
+                                </ModalHeader>
+                                <ModalBody>
+                                    <Text>If you need support with anything related to Trygger.xyz, please send an email to <a href="mailto:support@trygger.xyz">support@trygger.xyz</a></Text>
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button onClick={supportOnClose}>Ok</Button>
+                                </ModalFooter>
+                            </ModalContent>
+                        </Modal>
+                    </Box>
                     : 
                     <Box>
                         <Link margin={'5px'} onClick={onOpen}>Login</Link>|

@@ -84,7 +84,7 @@ ${tx.timestamp ? new Date((tx.timestamp ?? 0) * 1000) : ''}`
                 //send email alert
                 const msg = {
                     to: this.trygger.action_details['email'] ?? '',
-                    from: 'kbantadevelopment@gmail.com',
+                    from: 'alert@trygger.xyz',
                     subject: 'Wallet Activity Alert - Trygger.xyz',
                     text: message
                 };
