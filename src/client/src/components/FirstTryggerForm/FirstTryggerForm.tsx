@@ -130,8 +130,8 @@ export const FirstTryggerForm = () => {
                 }
             })}>
                 <option value='wallet'>Wallet Monitor</option>
-                <option value='erc20'>ERC20 Transfers</option>
-                <option value='nft'>NFT Transfers</option>
+                <option value='erc20'>ERC20 Transfers (coming soon)</option>
+                <option value='nft'>NFT Transfers (coming soon)</option>
                 <option value='gas'>Gas Alerts (Pro - Coming Soon)</option>
                 <option value='price'>Price Alert (Pro - Coming Soon)</option>
                 <option value='whale'>Whale Movement (Pro - Coming Soon)</option>
