@@ -47,8 +47,8 @@ export const Navbar = () => {
     }
 
     return (
-        <Box display={'flex'} justifyContent={'space-between'} padding={'10px'} alignItems={'center'}>
-            <Image src={logo} height={'60px'} width={'240px'}/>
+        <Box display={'flex'} flexDirection={['column', 'row']} justifyContent={'space-between'} padding={'10px'} alignItems={'center'}>
+            <Image src={logo} marginBottom={['10px', '0px']} height={'60px'} width={'240px'}/>
             <Box textColor={'white'}>
                 {
                     user ? 

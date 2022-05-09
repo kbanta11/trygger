@@ -98,7 +98,7 @@ export const FirstTryggerForm = () => {
     }
 
     return (
-        <Box borderRadius={'15px'} bgColor={'white'} padding={'10px'} width={'400px'} alignSelf={'center'}>
+        <Box borderRadius={'15px'} bgColor={'white'} margin={'10px'} padding={'10px'} width={['350px', '400px']} alignSelf={'center'}>
             <Box display={'flex'} justifyContent={'center'}>
                 <Heading marginRight={'5px'} fontFamily={'Langar'} fontSize={'2em'}>Create Your First Trygger</Heading>
                 <Popover placement={'auto-start'}>
